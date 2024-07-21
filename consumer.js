@@ -12,7 +12,7 @@ const consumer = kafka.consumer({ groupId: 'test-group' });
 
 const runConsumer = async () => {
   await consumer.connect();
-  console.log('Consumer connected');
+  console.log('Consumer connec');
 
   await consumer.subscribe({ topic: 'test-topic', fromBeginning: true });
   await consumer.subscribe({topic:'next-topic',fromBeginning:true})

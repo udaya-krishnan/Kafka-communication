@@ -18,6 +18,8 @@ const runConsumer = async () => {
   await consumer.subscribe({topic:'next-topic',fromBeginning:true})
   await consumer.subscribe({topic:'test',fromBeginning:true})
 
+  console.log("consumer subscribe");
+
   // Process messages
   await consumer.run({
     eachMessage: async ({ topic, partition, message }) => {

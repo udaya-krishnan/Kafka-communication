@@ -3,12 +3,26 @@ name: kafka
 on:
   pull_request
 
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: action/checkout@v2
-      - run: npm install && docker-compose -up d
-      - run: node consumer.js && node anotherconsumer.js
-      - run: node producer.js
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Node.js dependencies
+        run: npm install
+
+      - name: Start Kafka and Zookeeper services
+        run: docker-compose up -d
+
+      - name: Wait for Kafka to be ready
+        run: sleep 20
+
+      - name: Run consumer scripts
+        run: |
+          node consumer.js &
+          node anotherconsumer.js &
+      
+      - name: Run producer script
+        run: node producer.js
